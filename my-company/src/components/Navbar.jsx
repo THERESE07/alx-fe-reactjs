@@ -6,6 +6,7 @@ function Navbar() {
     display: 'flex',
     gap: '20px',
     backgroundColor: '#f8f9fa',
+    justifyContent: 'space-between',
     borderBottom: '1px solid #ddd',
   };
 
