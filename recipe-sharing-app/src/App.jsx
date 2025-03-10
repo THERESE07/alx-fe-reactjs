@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import RecipeList from './components/RecipeList'
 import AddRecipeForm from './components/AddRecipeForm'
+import useRecipeStore from './components/recipeStore'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,6 +14,7 @@ function App() {
       <div>
         <RecipeList />
         <AddRecipeForm />
+        <useRecipeStore />
       </div>
       
     </>
