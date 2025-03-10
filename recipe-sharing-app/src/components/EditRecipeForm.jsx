@@ -14,6 +14,9 @@ const EditRecipeForm = ({ recipeId }) => {
   };
 
   return (
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+      };
     <form onSubmit={handleSubmit}>
       <input
         type="text"
