@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
-import { useRecipeStore } from '../recipeStore'; // Import your Zustand store
+import useRecipeStore from './recipeStore';
 
 const EditRecipeForm = ({ recipe }) => {
-  // Local state for title and description fields
-  const [title, setTitle] = useState(recipe.title || '');
-  const [description, setDescription] = useState(recipe.description || '');
-
-  // Zustand store action for updating recipes
+  const [title, setTitle] = useState(recipe.title);
+  const [description, setDescription] = useState(recipe.description);
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  // Form submission handler
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    if (title.trim() === '' || description.trim() === '') {
-      alert('Both fields are required.');
-      return; // Ensure title and description are not empty
+    e.preventDefault();
+    if (title.trim() && description.trim()) {
+      updateRecipe({ ...recipe, title, description });
+      alert('Recipe updated successfully!');
+    } else {
+      alert('Both title and description are required.');
     }
-
-    // Call the updateRecipe function with updated data
-    updateRecipe({ ...recipe, title, description });
-
-    // Optional: Display success or reset the form (if needed)
-    alert('Recipe updated successfully!');
   };
 
   return (
@@ -31,7 +23,7 @@ const EditRecipeForm = ({ recipe }) => {
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)} // Update title state
+          onChange={(e) => setTitle(e.target.value)}
         />
       </label>
       <br />
@@ -39,7 +31,7 @@ const EditRecipeForm = ({ recipe }) => {
         Description:
         <textarea
           value={description}
-          onChange={(e) => setDescription(e.target.value)} // Update description state
+          onChange={(e) => setDescription(e.target.value)}
         />
       </label>
       <br />
