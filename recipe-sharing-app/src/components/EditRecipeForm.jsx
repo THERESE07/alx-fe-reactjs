@@ -2,25 +2,24 @@ import React, { useState } from 'react';
 import useRecipeStore from '../recipeStore'; // Import the Zustand store
 
 const EditRecipeForm = ({ recipe }) => {
-  // Manage local state for form fields
+  // Local state for form inputs
   const [title, setTitle] = useState(recipe.title || '');
   const [description, setDescription] = useState(recipe.description || '');
 
-  // Fetch the updateRecipe function from the Zustand store
+  // Access the updateRecipe action from Zustand
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-
-    // Simple validation to ensure both fields are filled
-    if (title.trim() && description.trim()) {
-      // Update the recipe in the Zustand store
-      updateRecipe({ ...recipe, title, description });
-      alert('Recipe updated successfully!');
-    } else {
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    if (title.trim() === '' || description.trim() === '') {
       alert('Both title and description fields are required!');
+      return;
     }
+
+    // Update the recipe in the Zustand store
+    updateRecipe({ ...recipe, title, description });
+    alert('Recipe updated successfully!');
   };
 
   return (
@@ -30,7 +29,9 @@ const EditRecipeForm = ({ recipe }) => {
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)} // Update title in local state
+          onChange={(e) => setTitle(e.target.value)} // Update the title state
+          placeholder="Enter the recipe title"
+          required
         />
       </label>
       <br />
@@ -38,7 +39,9 @@ const EditRecipeForm = ({ recipe }) => {
         Description:
         <textarea
           value={description}
-          onChange={(e) => setDescription(e.target.value)} // Update description in local state
+          onChange={(e) => setDescription(e.target.value)} // Update the description state
+          placeholder="Enter the recipe description"
+          required
         />
       </label>
       <br />
