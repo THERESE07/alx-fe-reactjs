@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import EditRecipeForm from './components/EditRecipeForm';
 import DeleteRecipeButton from './components/DeleteRecipeButton';
+import SearchBar from './components/SearchBar';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,6 +15,8 @@ function App() {
         <Route path="/recipe/:id" element={<RecipeDetails />} />
         {/* Other routes here */}
       </Routes>
+      <h1>Recipe Sharing App</h1>
+      <SearchBar />
       <RecipeList />
       <AddRecipeForm />
       <useRecipeStore />
