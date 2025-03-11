@@ -6,6 +6,9 @@ import RecipeDetails from './components/RecipeDetails';
 import EditRecipeForm from './components/EditRecipeForm';
 import DeleteRecipeButton from './components/DeleteRecipeButton';
 import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+import FavoriteButton from './components/FavoriteButton';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +25,9 @@ function App() {
       <useRecipeStore />
       <EditRecipeForm />
       <DeleteRecipeButton />
+      <FavoritesList />
+      <FavoriteButton />
+      <RecommendationsList />
     </Router>
   );
 }
