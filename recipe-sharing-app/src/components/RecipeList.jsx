@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-import useRecipeStore from '../recipeStore'; // Import the Zustand store
+import useRecipeStore  from "./recipeStore";
 
 const RecipeList = () => {
   const filteredRecipes = useRecipeStore((state) => state.filteredRecipes); // Use the filtered list from the Zustand store

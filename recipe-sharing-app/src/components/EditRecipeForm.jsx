@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useRecipeStore from '../recipeStore'; // Import the Zustand store
+import  useRecipeStore from "./recipeStore";
 
 const EditRecipeForm = ({ recipe }) => {
   // Local state for form inputs

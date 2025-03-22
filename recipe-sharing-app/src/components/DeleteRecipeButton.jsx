@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import useRecipeStore from '../recipeStore'; // Import the Zustand store
+import useRecipeStore  from "./recipeStore";
 
 const DeleteRecipeButton = ({ recipeId }) => {
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe); // Access deleteRecipe from Zustand

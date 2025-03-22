@@ -9,6 +9,7 @@ import SearchBar from './components/SearchBar';
 import FavoritesList from './components/FavoritesList';
 import RecommendationsList from './components/RecommendationsList';
 import FavoriteButton from './components/FavoriteButton';
+import React, { useState } from 'react';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +29,8 @@ function App() {
       <FavoritesList />
       <FavoriteButton />
       <RecommendationsList />
+      {useRecipeStore}
+     
     </Router>
   );
 }
