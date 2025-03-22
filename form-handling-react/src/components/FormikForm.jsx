@@ -27,6 +27,7 @@ function FormikForm() {
           <ErrorMessage name="password" component="p" />
           <button type="submit">Register</button>
         </Form>
+        
       )}
     </Formik>
   );
