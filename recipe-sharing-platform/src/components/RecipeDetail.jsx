@@ -8,7 +8,7 @@ function RecipeDetail() {
   useEffect(() => {
     // Fetch recipe data from the mock JSON file
     const fetchRecipe = async () => {
-      const response = await fetch('/data.json');
+      const response = await fetch('../data.json');
       const data = await response.json();
       const recipeData = data.find((recipe) => recipe.id === parseInt(id));
       setRecipe(recipeData);
@@ -29,17 +29,26 @@ function RecipeDetail() {
         alt={recipe.title}
         className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
       />
-      <p className="text-gray-600 mb-4 shadow-sm p-2 rounded">{recipe.summary}</p>
+      <p className="text-gray-600 mb-4">{recipe.summary}</p>
+      
+      {/* Ingredients Section */}
       <div className="shadow-md rounded-lg p-4 bg-gray-100 mb-4">
         <h2 className="text-xl font-semibold">Ingredients</h2>
         <ul className="list-disc ml-5">
-          <li>Example Ingredient 1</li>
-          <li>Example Ingredient 2</li>
+          {recipe.ingredients?.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
+          ))}
         </ul>
       </div>
+      
+      {/* Instructions Section */}
       <div className="shadow-md rounded-lg p-4 bg-gray-100">
         <h2 className="text-xl font-semibold">Cooking Instructions</h2>
-        <p>Instructions on how to cook this recipe.</p>
+        <ol className="list-decimal ml-5">
+          {recipe.instructions?.map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
+        </ol>
       </div>
     </div>
   );
