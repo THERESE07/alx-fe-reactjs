@@ -25,21 +25,23 @@ function AddRecipeForm() {
     return validationErrors;
   };
 
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value }); // Update form data dynamically
+    const { name, value } = e.target; // Access target.name and target.value
+    setFormData({ ...formData, [name]: value }); // Dynamically update form data
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate(); // Run validation
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors); // Display errors if validation fails
+      setErrors(validationErrors); // Set validation errors in state
     } else {
-      console.log('Recipe submitted:', formData); // Simulate successful submission
+      console.log('Recipe submitted:', formData); // Placeholder for submission logic
       setErrors({});
       alert('Recipe successfully submitted!');
-      setFormData({ title: '', ingredients: '', steps: '' }); // Clear the form
+      setFormData({ title: '', ingredients: '', steps: '' }); // Clear form
     }
   };
 
@@ -54,7 +56,7 @@ function AddRecipeForm() {
           type="text"
           name="title"
           value={formData.title}
-          onChange={handleChange}
+          onChange={handleChange} // Properly captures input
           className="block w-full border rounded p-2 mb-1"
         />
         {errors.title && <span className="text-red-500">{errors.title}</span>}
@@ -66,7 +68,7 @@ function AddRecipeForm() {
         <textarea
           name="ingredients"
           value={formData.ingredients}
-          onChange={handleChange}
+          onChange={handleChange} // Properly captures input
           className="block w-full border rounded p-2 mb-1"
           rows="5"
         ></textarea>
@@ -79,7 +81,7 @@ function AddRecipeForm() {
         <textarea
           name="steps"
           value={formData.steps}
-          onChange={handleChange}
+          onChange={handleChange} // Properly captures input
           className="block w-full border rounded p-2 mb-1"
           rows="5"
         ></textarea>
