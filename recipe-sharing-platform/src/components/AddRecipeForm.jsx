@@ -6,58 +6,84 @@ function AddRecipeForm() {
     ingredients: '',
     steps: ''
   });
+  const [errors, setErrors] = useState({}); // State for validation errors
+
+  // Validation function
+  const validate = () => {
+    const validationErrors = {};
+    if (!formData.title.trim()) {
+      validationErrors.title = 'Title is required.';
+    }
+    if (!formData.ingredients.trim()) {
+      validationErrors.ingredients = 'Ingredients are required.';
+    } else if (formData.ingredients.split(',').length < 2) {
+      validationErrors.ingredients = 'Please provide at least two ingredients.';
+    }
+    if (!formData.steps.trim()) {
+      validationErrors.steps = 'Preparation steps are required.';
+    }
+    return validationErrors;
+  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target; // Properly access target.name and target.value
-    setFormData({ ...formData, [name]: value }); // Dynamically update form data based on user input
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value }); // Update form data dynamically
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Recipe submitted:', formData); // Placeholder for actual form submission logic
+    const validationErrors = validate(); // Run validation
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Display errors if validation fails
+    } else {
+      console.log('Recipe submitted:', formData); // Simulate successful submission
+      setErrors({});
+      alert('Recipe successfully submitted!');
+      setFormData({ title: '', ingredients: '', steps: '' }); // Clear the form
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-4 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">Add a New Recipe</h1>
 
-      {/* Title Input Field */}
+      {/* Title Field */}
       <label className="block mb-2">
         Title:
         <input
           type="text"
           name="title"
           value={formData.title}
-          onChange={handleChange} // Captures input using target.value
-          className="block w-full border rounded p-2 mb-4"
-          required
+          onChange={handleChange}
+          className="block w-full border rounded p-2 mb-1"
         />
+        {errors.title && <span className="text-red-500">{errors.title}</span>}
       </label>
 
-      {/* Ingredients Textarea */}
+      {/* Ingredients Field */}
       <label className="block mb-2">
-        Ingredients:
+        Ingredients (comma-separated):
         <textarea
           name="ingredients"
           value={formData.ingredients}
-          onChange={handleChange} // Captures input using target.value
-          className="block w-full border rounded p-2 mb-4"
+          onChange={handleChange}
+          className="block w-full border rounded p-2 mb-1"
           rows="5"
-          required
         ></textarea>
+        {errors.ingredients && <span className="text-red-500">{errors.ingredients}</span>}
       </label>
 
-      {/* Preparation Steps Textarea */}
+      {/* Preparation Steps Field */}
       <label className="block mb-2">
         Preparation Steps:
         <textarea
           name="steps"
           value={formData.steps}
-          onChange={handleChange} // Captures input using target.value
-          className="block w-full border rounded p-2 mb-4"
+          onChange={handleChange}
+          className="block w-full border rounded p-2 mb-1"
           rows="5"
-          required
         ></textarea>
+        {errors.steps && <span className="text-red-500">{errors.steps}</span>}
       </label>
 
       {/* Submit Button */}
