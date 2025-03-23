@@ -6,8 +6,9 @@ function AddRecipeForm() {
     ingredients: '',
     steps: ''
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); // For validation error messages
 
+  // Validation function
   const validate = () => {
     const validationErrors = {};
     if (!formData.title.trim()) {
@@ -24,21 +25,23 @@ function AddRecipeForm() {
     return validationErrors;
   };
 
+  // Handle input changes (uses target.value)
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target; // Dynamically fetch name and value
+    setFormData({ ...formData, [name]: value }); // Update state based on input
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate();
+    const validationErrors = validate(); // Validate form
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+      setErrors(validationErrors); // Populate errors state
     } else {
-      console.log('Recipe submitted:', formData);
+      console.log('Recipe submitted:', formData); // Process submission
       setErrors({});
       alert('Recipe successfully submitted!');
-      setFormData({ title: '', ingredients: '', steps: '' });
+      setFormData({ title: '', ingredients: '', steps: '' }); // Clear form
     }
   };
 
@@ -56,7 +59,7 @@ function AddRecipeForm() {
           type="text"
           name="title"
           value={formData.title}
-          onChange={handleChange}
+          onChange={handleChange} // Captures input using target.value
           className="block w-full border rounded p-2 mb-1 shadow-sm"
         />
         {errors.title && <span className="text-red-500">{errors.title}</span>}
@@ -68,7 +71,7 @@ function AddRecipeForm() {
         <textarea
           name="ingredients"
           value={formData.ingredients}
-          onChange={handleChange}
+          onChange={handleChange} // Captures input using target.value
           className="block w-full border rounded p-2 mb-1 shadow-sm"
           rows="5"
         ></textarea>
@@ -83,7 +86,7 @@ function AddRecipeForm() {
         <textarea
           name="steps"
           value={formData.steps}
-          onChange={handleChange}
+          onChange={handleChange} // Captures input using target.value
           className="block w-full border rounded p-2 mb-1 shadow-sm"
           rows="5"
         ></textarea>
@@ -95,7 +98,7 @@ function AddRecipeForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition shadow"
+        className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition shadow-md"
       >
         Submit Recipe
       </button>
