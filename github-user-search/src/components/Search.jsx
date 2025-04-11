@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchAdvancedUserData } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 const Search = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ const Search = () => {
     setUsers([]);
 
     try {
-      const results = await fetchAdvancedUserData({ username, location, minRepos });
+      const results = await fetchUserData({ username, location, minRepos });
       setUsers(results); // Store the list of users in the state
     } catch (err) {
       setError('Looks like we can’t find any users matching your criteria.');
