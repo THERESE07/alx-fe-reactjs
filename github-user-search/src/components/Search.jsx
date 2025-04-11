@@ -5,7 +5,9 @@ const Search = ({ onSearch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(username);
+    if (username.trim()) {
+      onSearch(username); // Trigger the parent's search handler
+    }
   };
 
   return (
@@ -22,4 +24,3 @@ const Search = ({ onSearch }) => {
 };
 
 export default Search;
-
