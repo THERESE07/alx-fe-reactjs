@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  // Separate states for each field
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({}); // Error state to store validation messages
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      alert("All fields are required.");
+
+    let validationErrors = {};
+
+    if (!username) {
+      validationErrors.username = "Username is required.";
+    }
+    if (!email) {
+      validationErrors.email = "Email is required.";
+    }
+    if (!password) {
+      validationErrors.password = "Password is required.";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // Update errors state
     } else {
       console.log("Form Submitted:", { username, email, password });
+      setErrors({}); // Clear errors on successful submission
     }
   };
 
@@ -22,27 +36,30 @@ const RegistrationForm = () => {
         <input
           type="text"
           name="username"
-          value={username} // Binding input value to state
-          onChange={(e) => setUsername(e.target.value)} // Update username state
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <div className="error">{errors.username}</div>}
       </div>
       <div>
         <label>Email:</label>
         <input
           type="email"
           name="email"
-          value={email} // Binding input value to state
-          onChange={(e) => setEmail(e.target.value)} // Update email state
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <div className="error">{errors.email}</div>}
       </div>
       <div>
         <label>Password:</label>
         <input
           type="password"
           name="password"
-          value={password} // Binding input value to state
-          onChange={(e) => setPassword(e.target.value)} // Update password state
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <div className="error">{errors.password}</div>}
       </div>
       <button type="submit">Register</button>
     </form>
