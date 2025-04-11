@@ -21,7 +21,7 @@ const Search = ({ onSearch, error }) => {
         />
         <button type="submit">Search</button>
       </form>
-      {error && <p>Looks like we can't find the user</p>}
+      {error && <p>Looks like we cant find the user</p>}
     </div>
   );
 };
