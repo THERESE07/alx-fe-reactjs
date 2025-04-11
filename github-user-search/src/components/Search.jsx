@@ -1,59 +1,43 @@
 import React, { useState } from 'react';
-import { fetchUserData } from '../services/githubService';
-const Search = () => {
+
+const Search = ({ onSearch }) => {
   const [username, setUsername] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [userData, setUserData] = useState(null);
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
-
-    setLoading(true);
-    setError('');
-    setUserData(null);
-
-    try {
-      const response = await fetch(`https://api.github.com/users/${username}`);
-      if (!response.ok) {
-        throw new Error('User not found');
-      }
-      const data = await response.json();
-      setUserData(data);
-    } catch (err) {
-      setError('Looks like we cant find the user');
-    } finally {
-      setLoading(false);
-    }
+    onSearch({ username, location, minRepos });
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="p-4 bg-gray-100 rounded-lg max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
+          className="w-full p-2 border rounded-md"
           placeholder="Enter GitHub username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <input
+          type="text"
+          className="w-full p-2 border rounded-md"
+          placeholder="Enter location (optional)"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <input
+          type="number"
+          className="w-full p-2 border rounded-md"
+          placeholder="Min repositories (optional)"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+        />
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md">
+          Search
+        </button>
       </form>
-
-      {/* Conditional Rendering */}
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {userData && (
-        <div>
-          <img src={userData.avatar_url} alt={`${userData.login}'s Avatar`} width="100" />
-          <h2>{userData.login}</h2>
-          <p>
-            <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-              View Profile
-            </a>
-          </p>
-        </div>
-      )}
     </div>
   );
 };
