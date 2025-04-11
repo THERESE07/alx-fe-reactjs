@@ -24,13 +24,12 @@ const App = () => {
 
   return (
     <div>
-      <Search onSearch={handleSearch} />
+      <Search onSearch={handleSearch} error={error} />
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt="Avatar" width="100" />
-          <h2>{userData.name}</h2>
+          <h2>{userData.login}</h2>
           <p>
             <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
               View Profile
