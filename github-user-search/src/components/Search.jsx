@@ -1,12 +1,30 @@
 import React, { useState } from 'react';
 
-const Search = ({ onSearch, error }) => {
+const Search = () => {
   const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [userData, setUserData] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (username.trim()) {
-      onSearch(username); // Trigger search in the parent component
+    if (!username.trim()) return;
+
+    setLoading(true);
+    setError('');
+    setUserData(null);
+
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      if (!response.ok) {
+        throw new Error('User not found');
+      }
+      const data = await response.json();
+      setUserData(data);
+    } catch (err) {
+      setError('Looks like we cant find the user');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -21,7 +39,21 @@ const Search = ({ onSearch, error }) => {
         />
         <button type="submit">Search</button>
       </form>
-      {error && <p>Looks like we cant find the user</p>}
+
+      {/* Conditional Rendering */}
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {userData && (
+        <div>
+          <img src={userData.avatar_url} alt={`${userData.login}'s Avatar`} width="100" />
+          <h2>{userData.login}</h2>
+          <p>
+            <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+              View Profile
+            </a>
+          </p>
+        </div>
+      )}
     </div>
   );
 };
