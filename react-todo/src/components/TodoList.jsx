@@ -7,8 +7,10 @@ const TodoList = () => {
   ]);
 
   const addTodo = (text) => {
-    const newTodo = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newTodo]);
+    if (text.trim()) {
+      const newTodo = { id: Date.now(), text, completed: false };
+      setTodos([...todos, newTodo]);
+    }
   };
 
   const toggleTodo = (id) => {
@@ -24,7 +26,7 @@ const TodoList = () => {
   };
 
   return (
-    <div>
+    <div data-testid="todo-list">
       <h1>Todo List</h1>
       <ul>
         {todos.map((todo) => (
@@ -33,7 +35,10 @@ const TodoList = () => {
             onClick={() => toggleTodo(todo.id)}
             style={{ textDecoration: todo.completed ? "line-through" : "none" }}
           >
-            {todo.text} <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            {todo.text}{" "}
+            <button onClick={() => deleteTodo(todo.id)} data-testid="delete-button">
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -47,21 +52,22 @@ const AddTodoForm = ({ addTodo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim()) {
-      addTodo(text);
-      setText("");
-    }
+    addTodo(text);
+    setText("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-testid="add-todo-form">
       <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Add a new todo"
+        data-testid="todo-input"
       />
-      <button type="submit">Add</button>
+      <button type="submit" data-testid="submit-button">
+        Add
+      </button>
     </form>
   );
 };
