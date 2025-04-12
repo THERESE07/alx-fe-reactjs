@@ -10,6 +10,17 @@
     "preview": "vite preview",
     "test": "jest"
   },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[tj]s?(x)"
+    ]
+  },
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
