@@ -1,11 +1,18 @@
-const UserProfile = (props) => {
-    return (
+import React from "react";
+import UserInfo from "./UserInfo";
+import UserContext from "./UserContext";
+function ProfilePage() {
+  const userData = useContext(UserContext);
+  return (
+    <>
+      <UserInfo />
       <div>
-        <h2>{props.name}</h2>
-        <p>Age: {props.age}</p>
-        <p>Bio: {props.bio}</p>
+        <UserInfo />
+        <p>Name: {userData.name}</p>
+        <p>Email: {userData.email}</p>
       </div>
-    );
-  };
+    </>
+  );
+}
 
-  export default  UserProfile;
+export default UserProfile;
